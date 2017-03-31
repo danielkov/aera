@@ -1,6 +1,8 @@
 # Aera
-
 A Super-Simple HTTP Server library that makes use of functional programming paradigms, but stays unopinionated about how you handle your requests and responses.
+___
+
+Now with 100% test coverage!
 
 ## Basic usage
 
