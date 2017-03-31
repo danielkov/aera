@@ -1,0 +1,14 @@
+{
+  "name": "aera",
+  "version": "0.1.1",
+  "description": "A super-simple functional HTTP library.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Kovacs <kovacsemod@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "path-to-regexp": "^1.7.0"
+  }
+}
