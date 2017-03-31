@@ -56,6 +56,27 @@ server.post('/echo', (req) => req)
 
 Creating Web Apps should be simple and fun.
 
+## Exceptions and error handling
+
+Aera tries to handle your exceptions for you, but it is completely fine if you want to have your own custom messages for exceptions. You can specify them in the options parameter of the `Aera()` constructor.
+
+```js
+const server = new Aera({port: 3000, notFoundException: 'Not the droids you are looking for. Sorry.'})
+```
+
+Of course if you wanted to make this nice, you can pass it a template function instead. That would also as long as it returns a valid string value.
+
+```js
+const server = new Aera({port: 3000, notFoundException: myNotFoundTemplate()})
+```
+
+Currently the following errors will be returned by Aera by default:
+
+  - `notFoundException` status: 404, body: `Not found.` - returned when no path matches the request url.
+  - `fileNotFoundException` status: 404, body: `File not found.` - returned when a stream is passed in and it errors.
+  - `internalServerErrorException` status: 500, body: `Internal server error.` - returned when the handler has an uncaught exception.
+  - `methodNotAllowedException` status: 405, body: `Method not allowed.` - returned when no handlers are available for the method of the path.
+
 ## Future
 
 The API is not yet evolved fully, however in the not so far future I'm looking into making it more friendly and easier in production use-cases as well.
@@ -63,3 +84,5 @@ The API is not yet evolved fully, however in the not so far future I'm looking i
 ## Contribution
 
 I welcome contribution to this project in any form. If you'd like to work with me to improve anything (performance, features), feel free to submit an issue and create a PR.
+
+Currently I am looking into ways to efficiently create hooks for certain events that happen, like `pre-routing`, `post-handler`, etc... This may be useful for authentication, normalization, header checks and so on. This will probably get released in the next major version `1.0.0`.
