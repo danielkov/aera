@@ -1,12 +1,16 @@
 {
   "name": "aera",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A super-simple functional HTTP library.",
   "main": "index.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha"
   },
   "author": "Daniel Kovacs <kovacsemod@gmail.com>",
+  "repository": {
+    "type" : "git"
+  , "url" : "https://github.com/danielkov/aera.git"
+  }
   "license": "MIT",
   "dependencies": {
     "path-to-regexp": "^1.7.0"
