@@ -8,9 +8,9 @@
   },
   "author": "Daniel Kovacs <kovacsemod@gmail.com>",
   "repository": {
-    "type" : "git"
-  , "url" : "https://github.com/danielkov/aera.git"
-  }
+    "type" : "git",
+    "url" : "https://github.com/danielkov/aera.git"
+  },
   "license": "MIT",
   "dependencies": {
     "path-to-regexp": "^1.7.0"
