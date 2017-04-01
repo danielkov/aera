@@ -2,6 +2,8 @@ const request = require('supertest')
 const assert = require('assert')
 const Aera = require('../index')
 
+const HttpError = require('../lib/utils/HttpError')
+
 const { createReadStream } = require('fs')
 
 describe('Aera instance', () => {
@@ -80,10 +82,10 @@ describe('Aera instance', () => {
   })
   describe('Testing route handling', () => {
     const server = new Aera(2017)
-    server.get('/error', () => { throw new Error('I am an error.') }) // throws an error
+    server.get('/error', () => { throw new Error() }) // throws an error
     server.get('/json', () => ({test: 'test'})) // returns json
     server.get('/promise', () => new Promise((resolve, reject) => resolve('Promise tested.')))
-    server.get('/promisefail', () => new Promise((resolve, reject) => reject('Promise tested.')))
+    server.get('/promisefail', () => new Promise((resolve, reject) => reject(new Error('Promise tested.'))))
     server.post('/stream', req => req) // returns request body
     server.get('/params/:param', ({ params }) => `${params.param}`) // returns request parameter
     server.get('/noreturn', () => true) // returns undefined
@@ -160,6 +162,16 @@ describe('Aera instance', () => {
         .expect('1234')
         .expect('Content-Type', 'application/xml')
         .expect(200, done)
+    })
+  })
+  describe('Testing utils', () => {
+    it('HttpError should have a working toJson() method', () => {
+      let e = new HttpError('Test', 400)
+      assert.deepEqual(e.toJson(), {message: 'Test', status: 400})
+    })
+    it('HttpError should have a working toString() method', () => {
+      let e = new HttpError('Test', 400)
+      assert(e.toString(), '400: Test')
     })
   })
 })

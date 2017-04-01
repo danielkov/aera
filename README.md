@@ -4,7 +4,37 @@ ___
 
 Now with 100% test coverage!
 
+## Version 1.0.0 Release Notes
+
+I am happy to announce the release of the **first major version**. This is the first major version, because I feel like Aera reached a point at which I would gladly recommend it to anyone wanting to get started with Node JS HTTP. Frankly, not a lot has changed since the previous version, however the API is now a lot more consistent with my expectations. For example, if you return errors, they will be handled properly (e.g.: their message will be displayed and their status, if they have any). The new version now also supports Duplex Streams, along with Readable Streams, which means you can build some very concise and insanely fast web applications, taking advantage of Transform Streams. To sum up the notes, here's a little summary:
+
+  1. Fixed a tiny typo in the README
+
+  2. Aera will now attempt to guess the mime type of your streams and send them over via the headers properly.
+
+  3. The source files in the `/lib` folder are now more modular as I've split them up. This makes them easier to debug.
+
+  4. More tests have been written to ensure Aera works as expected.
+
+  5. Promises returned from handler functions will now get the same treatment as regular responses once they've been resolved (parsing and content type detection). This means you can now return a regular object as the return value of a Promise you passed into the handler function, like so:
+
+```js
+.get('/', () => new Promise((resolve, reject) => resolve({message: 'Hello'})))
+```
+
+**More info:** performance test are coming in the near future, but rest assured they will match all expectations. I have tested some basic examples with some of the more popular frameworks and with native Node JS and so far the results are awesome.
+
+I will try not to bloat the API, like other frameworks do, instead I'm planning on releasing a bunch of tools you can use with Aera to make your web developing experience even more fun. These will come in the near future as `aera-tools` and will include stuff like easy authentication, database integration and more. Using these will stay completely optional, of course.
+
+More docuumentation and guides are also coming your way!
+
 ## Basic usage
+
+Install and add to your dependencies with the following line:
+
+```sh
+npm install --save aera
+```
 
 Below you can see a `Hello, World!` example, which is possibly the tiniest web application you can create.
 
@@ -12,7 +42,7 @@ Below you can see a `Hello, World!` example, which is possibly the tiniest web a
 const Aera = require('aera')
 const server = new Aera() // Default port is 3000
 
-server.get('/' () => 'Hello, World!')
+server.get('/', () => 'Hello, World!')
 ```
 
 In Aera, you can pass a single function to a path handler and the return value of that function will be reflected in the response. Aera will attempt to make a few guesses, based on the content you provide, for example, if you return an object, it will be stringified and sent with the Content-Type: `application/json`.
@@ -78,6 +108,20 @@ Currently the following errors will be returned by Aera by default:
   - `fileNotFoundException` status: 404, body: `File not found.` - returned when a stream is passed in and it errors.
   - `internalServerErrorException` status: 500, body: `Internal server error.` - returned when the handler has an uncaught exception.
   - `methodNotAllowedException` status: 405, body: `Method not allowed.` - returned when no handlers are available for the method of the path.
+
+## Request and Response
+
+In Aera, the `request` and `response` parameters are actually the native Node JS HTTP request and response objects. If you know how to use native HTTP, you'll know how to use Aera. Read up on the HTTP docs, [here](https://nodejs.org/api/http.html), or look for a guide in the guides folder.
+
+## Running tests
+
+You can run tests with the following line:
+
+```sh
+npm test
+```
+
+A little advice: in most use cases you can write tests for your application logic, without even involving Aera. This is because Aera encourages the concept of simple functional programming over side-effect-based middleware writing. Create your handlers, run tests on them and then plug them into Aera to see your content appear on your website or service.
 
 ## Future
 

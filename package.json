@@ -1,7 +1,13 @@
 {
   "name": "aera",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "A super-simple functional HTTP library.",
+  "tags": [
+    "http",
+    "es6",
+    "esnext",
+    "library"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha"
