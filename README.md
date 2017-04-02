@@ -2,7 +2,13 @@
 A Super-Simple HTTP Server library that makes use of functional programming paradigms, but stays unopinionated about how you handle your requests and responses.
 ___
 
-Now with 100% test coverage!
+
+```js
+const Aera = require('aera')
+
+const app = new Aera()
+app.get('/', () => 'Hello, World!')
+```
 
 ## Version 1.0.0 Release Notes
 
