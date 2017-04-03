@@ -1,3 +1,7 @@
+## Version 1.1.3
+
+  1. Changed error handling logic, so now error messages of all types will go through the same process as other response types, e.g.: passing in a stream as an error message will pipe that stream to the response object.
+
 ## Version 1.1.2
 
   1. Changed the routing logic a little bit. This means that now you have access to `request.query`, which is an object and search, a.k.a.: query parameters will no longer stop a route from working. This is more like a bugfix, rather than a release change, hence the minor version bump.
