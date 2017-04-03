@@ -2,7 +2,7 @@
 A Super-Simple HTTP Server library that makes use of functional programming paradigms, but stays unopinionated about how you handle your requests and responses.
 ___
 
-[![Build Status](https://travis-ci.org/danielkov/aera.svg?branch=master)](https://travis-ci.org/danielkov/aera)
+[![Build Status](https://travis-ci.org/danielkov/aera.svg?branch=master)](https://travis-ci.org/danielkov/aera) [![Coverage Status](https://coveralls.io/repos/github/danielkov/aera/badge.svg?branch=development)](https://coveralls.io/github/danielkov/aera?branch=development) [![Dependencies](https://david-dm.org/danielkov/aera.svg)](https://david-dm.org/danielkov/aera) [![devDependencies Status](https://david-dm.org/danielkov/aera/dev-status.svg)](https://david-dm.org/danielkov/aera?type=dev) [![npm](https://img.shields.io/npm/v/aera.svg?style=flat-square)](https://npmjs.com/package/aera)
 
 ```js
 const Aera = require('aera')
