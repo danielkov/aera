@@ -90,6 +90,7 @@ describe('Aera instance', () => {
     server.get('/params/:param', ({ params }) => `${params.param}`) // returns request parameter
     server.get('/noreturn', () => true) // returns undefined
     server.get('/streamerror', () => createReadStream('./doesntexist.txt'))
+    server.get('/static/:file+', ({params}) => createReadStream(`./test/static/${params.file}`))
     server.get('/content', (req, res) => {
       res.setHeader('Content-Type', 'text/plain')
       return { test: 'hello' }
@@ -161,6 +162,18 @@ describe('Aera instance', () => {
       req.get('/text')
         .expect('1234')
         .expect('Content-Type', 'application/xml')
+        .expect(200, done)
+    })
+    it('should serve static index.html', (done) => {
+      req.get('/static/index.html')
+        .expect('Test html\r\n')
+        .expect('Content-Type', 'text/html')
+        .expect(200, done)
+    })
+    it('should serve unknown file types with text/plain content type', (done) => {
+      req.get('/static/unknown.random')
+        .expect('unknown file type\r\n')
+        .expect('Content-Type', 'text/plain')
         .expect(200, done)
     })
   })
