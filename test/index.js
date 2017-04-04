@@ -166,13 +166,13 @@ describe('Aera instance', () => {
     })
     it('should serve static index.html', (done) => {
       req.get('/static/index.html')
-        .expect('Test html\r\n')
+        .expect(/Test html/)
         .expect('Content-Type', 'text/html')
         .expect(200, done)
     })
     it('should serve unknown file types with text/plain content type', (done) => {
       req.get('/static/unknown.random')
-        .expect('unknown file type\r\n')
+        .expect(/unknown file type/)
         .expect('Content-Type', 'text/plain')
         .expect(200, done)
     })
