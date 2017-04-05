@@ -1,3 +1,7 @@
+## Version 1.1.4
+
+  1. Implemented same version of `HttpError` as used in [`aera-tools`](https://www.npmjs.com/package/aera-tools).
+
 ## Version 1.1.3
 
   1. Changed error handling logic, so now error messages of all types will go through the same process as other response types, e.g.: passing in a stream as an error message will pipe that stream to the response object.

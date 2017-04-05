@@ -177,14 +177,28 @@ describe('Aera instance', () => {
         .expect(200, done)
     })
   })
-  describe('Testing utils', () => {
-    it('HttpError should have a working toJson() method', () => {
-      let e = new HttpError('Test', 400)
-      assert.deepEqual(e.toJson(), {message: 'Test', status: 400})
+  describe('Testing HttpError...', () => {
+    it('Should be of type Error', () => {
+      let test = new HttpError()
+      assert(test instanceof Error)
     })
-    it('HttpError should have a working toString() method', () => {
-      let e = new HttpError('Test', 400)
-      assert(e.toString(), '400: Test')
+    it('Should should have a working toJson() method.', () => {
+      let test = new HttpError('Test', 500)
+      let json = test.toJson()
+      assert.deepEqual(json, {
+        message: 'Test',
+        status: 500
+      })
+    })
+    it('Should have a working toString() method.', () => {
+      let test = new HttpError('Test', 500)
+      let string = test.toString()
+      assert(string === '500: Test')
+    })
+    it('Should return the stringified object if that is the error message in toString()', () => {
+      let test = new HttpError({ test: 'test' }, 500)
+      let string = test.toString()
+      assert(string === '500: {"test":"test"}')
     })
   })
   describe('Testing new changes', () => {
