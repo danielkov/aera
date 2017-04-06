@@ -98,6 +98,7 @@ describe('Aera instance', () => {
       res.setHeader('Content-Type', 'application/xml')
       return 1234
     })
+    server.get('/function', () => () => 'test')
     let req = request('http://localhost:2017')
     it('should handle error page', (done) => {
       req.get('/error')
@@ -161,6 +162,11 @@ describe('Aera instance', () => {
       req.get('/text')
         .expect('1234')
         .expect('Content-Type', 'application/xml')
+        .expect(200, done)
+    })
+    it('should handle function response', (done) => {
+      req.get('/function')
+        .expect('test')
         .expect(200, done)
     })
   })
