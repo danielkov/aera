@@ -22,3 +22,5 @@ server
 
 // Return the body of the request in the response like an echo server.
 .post('/echo', (req) => req)
+
+.listen()

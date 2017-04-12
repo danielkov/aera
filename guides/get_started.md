@@ -66,7 +66,7 @@ To create a simple Hello, World! application with Aera, all you need to do is fi
 const Aera = require('aera')
 const server = new Aera()
 
-server.get('/', () => 'Hello, World!')
+server.get('/', () => 'Hello, World!').listen()
 ```
 
 Go ahead and run your application with:

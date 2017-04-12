@@ -60,6 +60,12 @@ Let's take a look at our handler then.
 api.get('/', () => getAll())
 ```
 
+**As of version 2.0** we also need to call the `listen()` method!
+
+```js
+api.listen() // uses constructor's port is none provided (3000 in our case)
+```
+
 Because Aera handles promises out of the box, we are at luck here. There is nothing more we need to do to make our API return all pets.
 
 Now let's take a look at getting information about a single pet.

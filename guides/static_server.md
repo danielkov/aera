@@ -7,6 +7,7 @@ const Aera = require('aera')
 const server = new Aera() // Port is 3000 by default.
 
 server.get('/', () => 'Welcome to my static file server.')
+.listen() // as of version 2.0
 ```
 
 Above is the initial setup. Now let's make it send the users some static files!

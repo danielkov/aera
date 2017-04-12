@@ -58,6 +58,7 @@ describe('Aera instance', () => {
     server.put('/test', () => 'Test')
     server.post('/test', () => 'Test')
     server.delete('/test', () => 'Test')
+    .listen()
     let req = request('http://localhost:2000')
     it('get() should add a new handler to route GET method', (done) => {
       req.get('/test')
@@ -99,6 +100,7 @@ describe('Aera instance', () => {
       return 1234
     })
     server.get('/function', () => () => 'test')
+    .listen()
     let req = request('http://localhost:2017')
     it('should handle error page', (done) => {
       req.get('/error')
@@ -143,10 +145,13 @@ describe('Aera instance', () => {
         .expect('test')
         .expect(200, done)
     })
-    it('should handle not proper return values', (done) => {
+    it('should not end request if handler returns void 0', (done) => {
+      let timeout = setTimeout(done, 1900)
       req.get('/noreturn')
-        .expect('')
-        .expect(200, done)
+        .expect(200, () => {
+          clearTimeout(timeout)
+          done(new Error('Request returned before timeout.'))
+        })
     })
     it('should handle erroring streams', (done) => {
       req.get('/streamerror')
@@ -193,6 +198,7 @@ describe('Aera instance', () => {
     .head('/normal', () => 'Test')
     .patch('/normal', () => 'Test')
     .get('/head', () => '')
+    .listen()
     let req = request('http://localhost:3050')
     it('Normal arguments should work for: options()', (done) => {
       req.options('/normal')
@@ -242,6 +248,17 @@ describe('Aera instance', () => {
     })
     it('HEAD request should act as a GET request if no HEAD handler is present.', (done) => {
       req.head('/head')
+        .expect(200, done)
+    })
+  })
+  describe('Testing 2.0 changes.', () => {
+    let server = new Aera(3020)
+    server.get('/',() => 'Test')
+    server.listen('localhost')
+    let req = request('http://localhost:3020')
+    it('Should automatically unshift port number to arguments', (done) => {
+      req.get('/')
+        .expect('Test')
         .expect(200, done)
     })
   })
